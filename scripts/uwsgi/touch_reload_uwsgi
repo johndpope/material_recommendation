@@ -1,0 +1,2 @@
+README (do NOT edit if neccessary):
+touch this file will reload uwsgi (only if uwsgi was started with touch-reload=<this_file>)

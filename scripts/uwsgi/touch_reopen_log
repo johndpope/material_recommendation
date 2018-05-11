@@ -1,0 +1,2 @@
+README (do NOT edit if neccessary):
+touch this file will reopen log (only if uwsgi was started with touch-logreopen=<this_file>)
