@@ -147,13 +147,13 @@ def get_systag_data():
 
     # 用相似词将keyword扩充
     num = 20
-    master_slave = {}
+    main_subordinate = {}
     high_freq_words = get_high_freq_words()
 
     for k in data['keyword']:
         systag_id_list = data['keyword'][k]
         # data['keyword_extend'][k] = [systag_id_list, 1.0]
-        master_slave[k] = [systag_id_list, []]
+        main_subordinate[k] = [systag_id_list, []]
         for w, s in get_similar_redis(k, num):
             w = ensure_unicode(w)
             if len(w) < 2:
@@ -167,7 +167,7 @@ def get_systag_data():
                 continue
 
             data['keyword_extend'][w] = [systag_id_list, s]
-            master_slave[k][1].append([w, s])
+            main_subordinate[k][1].append([w, s])
 
     for k in data['keyword']:
         systag_id_list = data['keyword'][k]
@@ -175,8 +175,8 @@ def get_systag_data():
 
     # 把keyword_extend信息存文件里，方便查看
     with open(SYSTAG_DATA_CHECK_FILE, 'w') as fc:
-        for k in master_slave:
-            systag_id_list, ws_list = master_slave[k]
+        for k in main_subordinate:
+            systag_id_list, ws_list = main_subordinate[k]
             fc.write('###' + k + '|||' + json.dumps(systag_id_list) + '=' * 10 + '\n')
             for w, s in ws_list:
                 fc.write(w + '|||' + str(s) + '\n')

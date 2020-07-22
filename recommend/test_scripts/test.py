@@ -501,15 +501,15 @@ def test17():
             cnt += 1
             l = l.strip('\n')
             this_dict = json.loads(l)
-            master_id = this_dict['id']
-            master_title = nat_get_title(mtype + '_' + str(master_id))
-            if not master_title:
+            main_id = this_dict['id']
+            main_title = nat_get_title(mtype + '_' + str(main_id))
+            if not main_title:
                 continue
             top = this_dict['top'][:10]
-            for slave_id, score in top:
-                slave_title = nat_get_title(mtype + '_' + str(slave_id))
-                row = [str(master_id), master_title,
-                       str(slave_id), slave_title, str(score)]
+            for subordinate_id, score in top:
+                subordinate_title = nat_get_title(mtype + '_' + str(subordinate_id))
+                row = [str(main_id), main_title,
+                       str(subordinate_id), subordinate_title, str(score)]
                 row = convert2gbk(row)
                 csvwriter.writerow(row)
     fo.close()
